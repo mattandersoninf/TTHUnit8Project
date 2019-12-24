@@ -34,6 +34,18 @@ $(document).ready(function(){
 
       
     });
+
+    // handle fetch requests asynchronously
+    /*
+
+    async function getRandomUsers(url){
+      const randomUserResponse = await fetch(url);
+      const randomUserJSON = await randomUserResponse.json();
+
+      
+    }
+
+    */
     
 
   });
