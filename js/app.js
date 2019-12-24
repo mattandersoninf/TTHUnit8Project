@@ -15,8 +15,6 @@ $(document).ready(function(){
 
     data.results.forEach(user => {
 
-      console.log(user);
-
       // build the user-container
 
       userInfoHTML = `
