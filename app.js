@@ -1,5 +1,7 @@
 /* app.js */
 
+const userContainer = $('.user-container');
+
 // use ajax to call the random user generator API
 $.ajax({
     url: 'https://randomuser.me/api/',
@@ -10,4 +12,16 @@ $.ajax({
   });
 
 
+
 //generate user content into containers
+function getRandomEmployeeData(url){
+  const xhr = new XMLHttpRequest();
+  xhr.open('GET', url, true);
+  xhr.onreadystatechange = function(){
+    if(xhr.readyState === 4 && xhr.status === 200){
+      let data = JSON.parse(xhr.responseText);
+      /* to be replace with returning the JSON information into a new employee object*/
+      data.map(p => console.log);
+    }
+  };
+}
