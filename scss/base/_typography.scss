@@ -14,3 +14,19 @@ body{
 main{
     color: $main-color;
 }
+
+header .app-name{
+    font-size: $header-app-name-font-size;
+    color: $header-app-name-color;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.employee-name-container{
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.employee-email-container, .employee-city-container{
+    font-size: 11px;
+}

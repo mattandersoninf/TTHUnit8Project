@@ -7,11 +7,79 @@
 }
 
 body {
-  background-color: white;
+  background-color: #f0f0f0;
 }
 
 main {
   color: black;
+}
+
+header .app-name {
+  font-size: 20px;
+  color: black;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.employee-name-container {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.employee-email-container, .employee-city-container {
+  font-size: 11px;
+}
+
+/* grid */
+body {
+  width: 100%;
+  margin: 0;
+}
+
+header, main {
+  width: 90%;
+  margin: 0 auto;
+  padding: 5px;
+}
+
+.grid {
+  display: grid;
+}
+
+.grid-section {
+  grid-gap: 5px;
+}
+
+#search {
+  margin: auto;
+}
+
+.employee-container {
+  width: 90%;
+  margin: 5px auto;
+  background-color: white;
+  border: 2px solid #808080;
+  border-radius: 5px;
+}
+.employee-container div {
+  margin: 2px auto;
+  text-align: center;
+}
+
+/* image */
+.img-rounded {
+  border-radius: 50%;
+}
+
+/* button */
+/* input */
+#user-search {
+  margin: 0 auto;
+  display: block;
+}
+
+.search-container {
+  margin: 5px 0;
 }
 
 /*# sourceMappingURL=style.css.map */

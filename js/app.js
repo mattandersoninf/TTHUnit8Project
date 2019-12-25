@@ -13,24 +13,24 @@ $(document).ready(function(){
   .then((response) => response.json())
   .then(function(data){
 
-    data.results.forEach(user => {
+    data.results.forEach(employee => {
 
-      // build the user-container
+      // build the employee-container
 
-      userInfoHTML = `
-      <div class="user-container grid-section grid">
-        <div class="user-img-container">
-          <img src="${user.picture.medium}" class="img-rounded" alt="${user.email}"></img>
+      employeeInfoHTML = `
+      <div class="employee-container grid-section grid">
+        <div class="employee-img-container">
+          <img src="${employee.picture.thumbnail}" class="img-rounded" alt="${employee.email}"></img>
         </div>
-        <div class="user-txt-container">
-          <span class="user-name-container">${user.name.first + " " + user.name.last}</span>
-          <span class="user-email-container">${user.email}</span>
-          <span class="user-city-container">${user.location.city}</span>
+        <div class="employee-txt-container">
+          <div class="employee-name-container">${employee.name.first + " " + employee.name.last}</div>
+          <div class="employee-email-container">${employee.email}</div>
+          <div class="employee-city-container">${employee.location.city}</div>
         </div>          
       </div>
       `;
 
-      var currentUser = $('.users-container').append(userInfoHTML);
+      var currentEmployee = $('.employees-container').append(employeeInfoHTML);
 
       
     });
@@ -42,7 +42,7 @@ $(document).ready(function(){
       const randomUserResponse = await fetch(url);
       const randomUserJSON = await randomUserResponse.json();
 
-      
+
     }
 
     */
