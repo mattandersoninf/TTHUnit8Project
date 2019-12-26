@@ -53,7 +53,6 @@ $(document).ready(function(){
 
 });
 
-// form user div container
 
-
-// provide classes 
+// add Eventlisteners to display overlay to each employee div container
+$('.employee-container')
