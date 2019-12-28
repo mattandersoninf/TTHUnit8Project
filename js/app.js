@@ -50,14 +50,13 @@ $(document).ready(function(){
       currentEmployee.click(function(e){
         
         // form the html for the modal
-
         let employeeModalCloseHTML = '<span class="modal-close">&times;</span>';
 
         let employeeModalInfoHTML = `
           <div class="employee-modal-txt-container">
             <div class="employee-secondary-text">${employee.cell}</div>
             <div class="employee-secondary-text">${employee.location.street+" "+employee.location.city+", "+employee.location.state+" "+employee.location.postcode}</div>
-            <div class="employee-secondary-text">${employee.dob.substring(0,employee.dob.indexOf("T"))}</div>
+            <div class="employee-secondary-text">${employee.dob.date}</div>
           </div>
         `
 
@@ -66,6 +65,9 @@ $(document).ready(function(){
         modalContainer.append(employeeInfoHTML);
         modalContainer.append(employeeModalInfoHTML);
 
+        // show the modal
+        modal.removeAttr("display");
+        modal.attr("display","block");
 
       });
 
