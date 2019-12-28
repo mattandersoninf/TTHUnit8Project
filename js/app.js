@@ -31,7 +31,7 @@ $(document).ready(function(){
       let employeeInfoHTML = `
         <div class="employee-container">
           <div class="employee-img-container">
-            <img src="${employee.picture.thumbnail}" class="img-rounded" alt="${employee.email}">
+            <img src="${employee.picture.large}" class="img-rounded" alt="${employee.email}">
           </div>
           <div class="employee-txt-container">
             <div class="employee-primary-text">${employee.name.first + " " + employee.name.last}</div>
@@ -52,57 +52,57 @@ $(document).ready(function(){
       currentEmployee.click(function(e){
         
         // form the html for the modal
-        let employeeModalCloseHTML = '<span class="modal-close">&times;</span>';
+        let employeeModalCloseHTML = '<div class="modal-close">&times;</div>';
 
         let employeeModalInfoHTML = `
-          <div class="employee-modal-txt-container">
+          <div class="prev-container">
+            <img src="../images/icons/Caret_left_font_awesome.svg" alt="prev">
+          </div>
+          <div class="employee-modal-text-container">
+          <div class="employee-img-container">
+            <img src="${employee.picture.large}" class="img-rounded" alt="${employee.email}">
+          </div>
+          <div class="employee-text-container">
+            <div class="employee-primary-text">${employee.name.first + " " + employee.name.last}</div>
+            <div class="employee-secondary-text">${employee.email}</div>
+            <div class="employee-secondary-text">${employee.location.city}</div>
+          </div>   
             <div class="employee-secondary-text">${employee.cell}</div>
             <div class="employee-secondary-text">${employee.location.street+" "+employee.location.city+", "+employee.location.state+" "+employee.location.postcode}</div>
             <div class="employee-secondary-text">${employee.dob.date}</div>
+          </div>
+          <div class="next-container">
+            <img src="../images/icons/Caret_right_font_awesome.svg" alt="next">
           </div>
         `
 
         // add the employee information to he the modal container
         modalContainer.append(employeeModalCloseHTML);
-        modalContainer.append(employeeInfoHTML);
         modalContainer.append(employeeModalInfoHTML);
 
         // show the modal
         modal.show();
 
+        
+        // add event listener for the modal close button
+        $(".modal-close").click(function(){
+          modalContainer.empty();
+          modal.hide();
+        });
+
+        // close the modal if the modal is present and it's clicked
+        window.onclick = function(){
+          if (event.target == modal){
+            modalContainer.empty();
+            modal.hide(); 
+          }
+        };
+
       });
 
     });
 
-    // handle fetch requests asynchronously
-    /*
-
-    async function getRandomUsers(url){
-      const randomUserResponse = await fetch(url);
-      const randomUserJSON = await randomUserResponse.json();
-
-
-    }
-
-    */
-    
-
   });
 
-
 });
 
-
-// add event listener for the modal close button
-$(".modal-close").click(function(){
-  modalContainer.empty();
-  modal.hide();
-});
-
-// close the modal if the modal is present and it's clicked
-window.onclick = () => {
-  if (event.target == modal){
-    modalContainer.empty();
-    modal.hide();
-  }
-};

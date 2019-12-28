@@ -17,6 +17,7 @@ header, main{
 
 .grid-section{
     grid-gap: $gutter-space;
+    border: 2px solid $employee-container-border-color;
 }
 
 #search{
@@ -27,7 +28,6 @@ header, main{
     width: 90%;
     margin: $gutter-space auto;
     background-color: $employee-container-background-color;
-    border: 2px solid $employee-container-border-color;
     border-radius: 5px;
     
     & div{
