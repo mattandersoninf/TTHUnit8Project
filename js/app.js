@@ -1,5 +1,14 @@
 /* app.js */
 
+// modal element
+const modal = $(".modal");
+
+//modal container element
+const modalContainer = $(".modal-container");
+
+// employees container
+const employeesContainer = $(".employees-container");
+
 // use fetch api to set up th e
 $(document).ready(function(){
 
@@ -17,20 +26,48 @@ $(document).ready(function(){
 
       // build the employee-container
 
-      employeeInfoHTML = `
-      <div class="employee-container grid-section grid">
-        <div class="employee-img-container">
-          <img src="${employee.picture.thumbnail}" class="img-rounded" alt="${employee.email}"></img>
+      let employeeInfoHTML = `
+        <div class="employee-container">
+          <div class="employee-img-container">
+            <img src="${employee.picture.thumbnail}" class="img-rounded" alt="${employee.email}">
+          </div>
+          <div class="employee-txt-container">
+            <div class="employee-primary-text">${employee.name.first + " " + employee.name.last}</div>
+            <div class="employee-secondary-text">${employee.email}</div>
+            <div class="employee-secondary-text">${employee.location.city}</div>
+          </div>          
         </div>
-        <div class="employee-txt-container">
-          <div class="employee-name-container">${employee.name.first + " " + employee.name.last}</div>
-          <div class="employee-email-container">${employee.email}</div>
-          <div class="employee-city-container">${employee.location.city}</div>
-        </div>          
-      </div>
       `;
 
-      var currentEmployee = $('.employees-container').append(employeeInfoHTML);
+      employeesContainer.append(employeeInfoHTML); 
+
+      // get the last employee-container that was added to the employees-container
+      let currentEmployee = $('.employees-container .employee-container:last-child');
+
+      currentEmployee.addClass("grid-section grid");
+
+      // add an event listener to the current employee
+      currentEmployee.click(function(e){
+        
+        // form the html for the modal
+
+        let employeeModalCloseHTML = '<span class="modal-close">&times;</span>';
+
+        let employeeModalInfoHTML = `
+          <div class="employee-modal-txt-container">
+            <div class="employee-secondary-text">${employee.cell}</div>
+            <div class="employee-secondary-text">${employee.location.street+" "+employee.location.city+", "+employee.location.state+" "+employee.location.postcode}</div>
+            <div class="employee-secondary-text">${employee.dob.substring(0,employee.dob.indexOf("T"))}</div>
+          </div>
+        `
+
+        // add the employee information to he the modal container
+        modalContainer.append(employeeModalCloseHTML);
+        modalContainer.append(employeeInfoHTML);
+        modalContainer.append(employeeModalInfoHTML);
+
+
+      });
 
       
     });
@@ -54,5 +91,16 @@ $(document).ready(function(){
 });
 
 
-// add Eventlisteners to display overlay to each employee div container
-$('.employee-container')
+// add event listener for the modal close button
+$(".modal-close").click(function(){
+  modalContainer.empty();
+  modal.style.display = "none";
+});
+
+// close the modal if the modal is present and it's clicked
+window.onclick = () => {
+  if (event.target == modal){
+    modalContainer.empty();
+    modal.style.display = "none";
+  }
+};

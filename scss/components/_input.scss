@@ -1,10 +1,13 @@
 /* input */
 
-#user-search{
-    margin: 0 auto;
-    display: block;
+#search{
+    margin: $gutter-space 0;
 }
 
-.search-container{
-    margin: $gutter-space 0;
+#employee-search{
+    margin: 0 auto;
+    padding: 3px;
+    display: block;
+    border: 2px solid $employee-search-border-color;
+    border-radius: 5px;
 }
