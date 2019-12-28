@@ -14,6 +14,8 @@ $(document).ready(function(){
 
   const url = "https://randomuser.me/api/?results=12&inc=picture,name,email,location,cell,dob";
 
+  modal.hide();
+
   // call the fetch api to grab information from the provided url
   // format the response into json
   // disect the json information
@@ -66,12 +68,10 @@ $(document).ready(function(){
         modalContainer.append(employeeModalInfoHTML);
 
         // show the modal
-        modal.removeAttr("display");
-        modal.attr("display","block");
+        modal.show();
 
       });
 
-      
     });
 
     // handle fetch requests asynchronously
@@ -96,13 +96,13 @@ $(document).ready(function(){
 // add event listener for the modal close button
 $(".modal-close").click(function(){
   modalContainer.empty();
-  modal.style.display = "none";
+  modal.hide();
 });
 
 // close the modal if the modal is present and it's clicked
 window.onclick = () => {
   if (event.target == modal){
     modalContainer.empty();
-    modal.style.display = "none";
+    modal.hide();
   }
 };
