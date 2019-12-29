@@ -24,11 +24,12 @@ header, main{
     margin: auto;
 }
 
-.employee-container{
+[class*="employee-container"]{
     width: 90%;
     margin: $gutter-space auto;
     background-color: $employee-container-background-color;
     border-radius: 5px;
+    padding: 0px 5px;
     
     & div{
         margin: 2px auto;
@@ -36,6 +37,3 @@ header, main{
     }
 
 }
-
-
-

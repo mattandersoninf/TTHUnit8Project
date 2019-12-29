@@ -24,7 +24,7 @@
     grid-template-areas: 
         "close close close"
         "prev info next";
-    grid-template-columns: 55px 1fr 55px;
+    grid-template-columns: 40px 1fr 40px;
     grid-template-rows: auto
 
 }
@@ -32,28 +32,32 @@
 // modal close
 .modal-close{
     color: $modal-close-color;
-    float: right;
     font-size: 28px;
-    font-weight: bold;
-    grid-area: "close";
+    font-weight: bold; 
+    opacity: 0.7;
+    grid-column-start: 1;
+    grid-column-end: -1;
+    margin-right: 15px;
+    margin-left: auto;
 }
 
+.prev-container:hover,
+.prev-container:focus,
+.next-container:hover,
+.next-container:focus,
 .modal-close:hover,
 .modal-close:focus {
     color: black;
     text-decoration: none;
     cursor: pointer;
+    opacity: 1.0;
 }
 
-.prev-container{
-    grid-area:"prev";
+.prev-container, .next-container{
+    opacity: 0.7;
 }
 
-.next-container{
-    grid-area:"next";
-}
-
-.employee-modal-text-container{
+.employee-secondary-container{
     border-top: 2px solid $employee-modal-border-color;
-    grid-area: "info";
+    padding: 5px 0px;
 }
