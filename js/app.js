@@ -3,13 +3,20 @@
 // modal element
 const modal = $(".modal");
 
-//modal container element
+// modal container element
 const modalContainer = $(".modal-container");
 
 // employees container
 const employeesContainer = $(".employees-container");
 
+// append the employee model information to this element
 const modalEmployeeContent = $(".modal-employee-content");
+
+// add event listener for the modal close button
+const closeButton = document.querySelector(".modal-close");
+
+// variable to hold the visible employees after a search
+var visibleEmployeesList = [];
 
 // use fetch api to set up the employee containers
 $(document).ready(function(){
@@ -48,33 +55,10 @@ $(document).ready(function(){
       // add the html of the employee container to the employees-container element
       employeesContainer.append(employeeInfoHTML); 
 
-      var employeeContainers = document.querySelector(".employees-container").querySelectorAll('[class*="employee-container"]');
-
-      employeeContainers.forEach(employeeContainer =>{
-        employeeContainer.addEventListener("click", function(){
-          modal.show();
-        });
-      });
-
-      /*
-      // get the last employee-container that was added to the employees-container
-      let currentEmployee = $('.employees-container .employee-container:last-child');
-
-      //currentEmployee.addClass("grid-section grid");
-
-      // add an event listener to the current employee
-      currentEmployee.click(function(e){
-
-        // show the modal
-        modal.show();
-
-      });
-      */
-
       // form the html for the modal
       let employeeModalInfoHTML = ` 
-        <div class="employee-modal-text-container" style="display: none;">
-          <div class="employee-container-`+i+`">
+        <div class="employee-modal-text-container employee-container-`+i+`" style="display: none;">
+          <div class="employee-primary-container">
             <div class="employee-img-container">
               <img src="${employee.picture.large}" class="img-rounded" alt="${employee.email}">
             </div>
@@ -95,27 +79,40 @@ $(document).ready(function(){
       // add the employee information to he the modal container
       modalEmployeeContent.append(employeeModalInfoHTML);
 
+
+      // apply an eventlistener to every employee-container
+      var employeeContainers = document.querySelector(".employees-container").querySelectorAll('[class*="employee-container"]');
+
+      //
+      employeeContainers.forEach(employeeContainer =>{
+        
+        employeeContainer.addEventListener("click", function(){
+
+          // show the employee modal element that matches the class of the employee container that was clicked
+          $(".modal-employee-content ."+employeeContainer.classList[0]).show();
+
+          // show the modal
+          modal.show();
+        
+        });
+      
+      });
+
       i++;
 
     });
 
   });
 
-});
+  // add event listener for the modal close button
+  $(".modal-close").click(function(){
+    
+    $(".modal-employee-content").find(".employee-modal-text-container").hide();
 
+    modal.hide();
 
-// add event listener for the modal close button
-var closeButton = document.querySelector(".modal-close");
-
-closeButton.addEventListener("click", function(){
-
-  let employeeContentList = modalEmployeeContent.find(".employee-modal-text-container");
-
-  employeeContentList.forEach(employeeContent => {
-    employeeContent.hide();
   });
 
-  modal.hide();
 
 });
 

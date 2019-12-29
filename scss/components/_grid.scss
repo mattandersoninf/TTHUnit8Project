@@ -24,7 +24,7 @@ header, main{
     margin: auto;
 }
 
-[class*="employee-container"]{
+.employees-container [class*="employee-container"]{
     width: 90%;
     margin: $gutter-space auto;
     background-color: $employee-container-background-color;
