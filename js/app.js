@@ -80,26 +80,34 @@ $(document).ready(function(){
       modalEmployeeContent.append(employeeModalInfoHTML);
 
 
-      // apply an eventlistener to every employee-container
-      var employeeContainers = document.querySelector(".employees-container").querySelectorAll('[class*="employee-container"]');
-
-      //
-      employeeContainers.forEach(employeeContainer =>{
-        
-        employeeContainer.addEventListener("click", function(){
-
-          // show the employee modal element that matches the class of the employee container that was clicked
-          $(".modal-employee-content ."+employeeContainer.classList[0]).show();
-
-          // show the modal
-          modal.show();
-        
-        });
-      
-      });
 
       i++;
 
+    });
+    
+    // apply an eventlistener to every employee-container
+    var employeeContainers = document.querySelector(".employees-container").querySelectorAll('[class*="employee-container"]');
+
+    //
+    employeeContainers.forEach(employeeContainer =>{
+      
+      employeeContainer.addEventListener("click", function(){
+
+        // get the visible employee-container element's class numbers and store them in visibleEmployeesList
+        for(j = 0; j < employeesContainer.find('[class*="employee-container-"]:visible').length; j++){
+          
+          visibleEmployeesList.push(employeesContainer.find('[class*="employee-container-"]:visible')[j]);
+
+        }
+
+        // show the employee modal element that matches the class of the employee container that was clicked
+        $(".modal-employee-content ."+employeeContainer.classList[0]).show();
+
+        // show the modal
+        modal.show();
+      
+      });
+    
     });
 
   });
