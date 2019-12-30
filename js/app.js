@@ -30,12 +30,11 @@ $(document).ready(function(){
   // this counter is for populating the employee-container with an unique class name
   let i = 0;
 
-  /* FETCH API PROMISE
+  // FETCH API PROMISE
   // 1. Call the fetch api to grab information from the provided url
   // 2. Format the response into json
   // 3. Disect the json information and sort it's results into the employeeInfoHTML.
   // IMPORTANT: fetch returns objects
-  */
   fetch(url)
   .then((response) => response.json())
   .then(function(data){
@@ -84,8 +83,6 @@ $(document).ready(function(){
       // add the employee information to he the modal container
       modalEmployeeContent.append(employeeModalInfoHTML);
 
-
-
       i++;
 
     });
@@ -93,12 +90,11 @@ $(document).ready(function(){
     // apply an eventlistener to every employee-container
     var employeeContainers = document.querySelector(".employees-container").querySelectorAll('[class*="employee-container"]');
 
-    /* EMPLOYEE CONTAINER EVENT LISTENER
+    // EMPLOYEE CONTAINER EVENT LISTENER
     // Clicking any of the employee containers triggers the following sequence of events
     // 1. Populate the visibleEmployeeList array with the visible (style.display != "none;") employee-container classes.
     // 2. Show the modal content that corresponds to the employee-container class that was clicked,
     // 3. Show the modal. 
-    */
     employeeContainers.forEach(employeeContainer =>{
       
       employeeContainer.addEventListener("click", function(){
@@ -119,6 +115,8 @@ $(document).ready(function(){
       });
     
     });
+
+
 
   });
 
@@ -203,4 +201,22 @@ window.addEventListener("click", function(){
     modalContainer.empty();
     modal.hide(); 
   }
+});
+
+// SEARCH FUNCTION
+// Clicknig any letter or number key triggers the folowing actions
+// 1. Create a searchable variable
+// 2. Utilize the jQuery filter function to in 
+$("#employee-search").on("keyup", function(){
+  
+  // grab the text that the user has typed
+  //use toLowerCase so that it will still return the correct result if the user uses upper case
+  let searchable = $(this).val().toLowerCase();
+    
+  //Toggle the visibility of the figures that have the employee-primary-text class(exclusive to the employee's name).
+  //If the searchable text matches part of the text within the figure, it will be visible, you won't see it otherwise.  
+  $('[class*="employee-container-"]').filter(function(){
+      $(this).toggle($(this).find('.employee-primary-text').text().toLowerCase().indexOf(searchable) > -1)
+  });
+
 });
