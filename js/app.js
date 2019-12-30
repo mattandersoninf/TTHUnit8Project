@@ -1,31 +1,22 @@
 /* app.js */
 
 // modal element
-const modal = $(".modal");
+const modal = document.querySelector(".modal");
 
 // modal container element
-const modalContainer = $(".modal-container");
-
-// employees container
-const employeesContainer = $(".employees-container");
+const modalContainer = document.querySelector(".modal-container");
 
 // append the employee model information to this element
-const modalEmployeeContent = $(".modal-employee-content");
+const modalEmployeeContent = document.querySelector(".modal-employee-content");
 
 // add event listener for the modal close button
 const closeButton = document.querySelector(".modal-close");
 
-// variable to hold the visible employees after a search
-var visibleEmployeesList = [];
+// the randomuser generator API site
+const url = "https://randomuser.me/api/?results=12&inc=picture,name,email,location,cell,dob";
 
 // use fetch api to set up the employee containers
-$(document).ready(function(){
-
-  // the randomuser generator API site
-  const url = "https://randomuser.me/api/?results=12&inc=picture,name,email,location,cell,dob";
-
-  // hide the modal element from the start (this could have been done in the html as well)
-  modal.hide();
+function onloadFillEmployees(){
 
   // this counter is for populating the employee-container with an unique class name
   let i = 0;
@@ -44,7 +35,7 @@ $(document).ready(function(){
       // build the employee-container
 
       let employeeInfoHTML = `
-        <div class="employee-container-`+i+` grid-section grid">
+        <div class="employee-container-`+i+` grid-section">
           <div class="employee-img-container">
             <img src="${employee.picture.large}" class="img-rounded" alt="${employee.email}">
           </div>
@@ -57,26 +48,21 @@ $(document).ready(function(){
       `;
 
       // add the html of the employee container to the employees-container element
-      employeesContainer.append(employeeInfoHTML); 
+      document.querySelector("main").innerHTML += employeeInfoHTML; 
 
       // form the html for the modal
       let employeeModalInfoHTML = ` 
-        <div class="employee-modal-text-container employee-container-`+i+`" style="display: none;">
-          <div class="employee-primary-container">
+        <div class="employee-modal-text-container employee-container-`+i+` hidden">
             <div class="employee-img-container">
               <img src="${employee.picture.large}" class="img-rounded" alt="${employee.email}">
             </div>
-            <div class="employee-text-container">
-              <div class="employee-primary-text">${employee.name.first + " " + employee.name.last}</div>
-              <div class="employee-secondary-text">${employee.email}</div>
-              <div class="employee-secondary-text">${employee.location.city}</div>
-            </div>
-          </div>
-          <div class="employee-secondary-container">
+            <div class="employee-primary-text">${employee.name.first + " " + employee.name.last}</div>
+            <div class="employee-secondary-text">${employee.email}</div>
+            <div class="employee-secondary-text">${employee.location.city}</div>
+            <hr />
             <div class="employee-secondary-text">${employee.cell}</div>
             <div class="employee-secondary-text">${employee.location.street.number+" "+employee.location.street.name+" "+employee.location.city+", "+employee.location.state+" "+employee.location.postcode}</div>
             <div class="employee-secondary-text">${employee.dob.date}</div>
-          </div>
         </div>
       `;
 
@@ -87,38 +73,10 @@ $(document).ready(function(){
 
     });
     
-    // apply an eventlistener to every employee-container
-    var employeeContainers = document.querySelector(".employees-container").querySelectorAll('[class*="employee-container"]');
-
-    // EMPLOYEE CONTAINER EVENT LISTENER
-    // Clicking any of the employee containers triggers the following sequence of events
-    // 1. Populate the visibleEmployeeList array with the visible (style.display != "none;") employee-container classes.
-    // 2. Show the modal content that corresponds to the employee-container class that was clicked,
-    // 3. Show the modal. 
-    employeeContainers.forEach(employeeContainer =>{
-      
-      employeeContainer.addEventListener("click", function(){
-
-        // get the visible employee-container element's class numbers and store them in visibleEmployeesList
-        for(j = 0; j < employeesContainer.find('[class*="employee-container-"]:visible').length; j++){
-          
-          visibleEmployeesList.push(employeesContainer.find('[class*="employee-container-"]:visible')[j].classList[0]);
-
-        }
-
-        // show the employee modal element that matches the class of the employee container that was clicked
-        $(".modal-employee-content ."+employeeContainer.classList[0]).show();
-
-        // show the modal
-        modal.show();
-      
-      });
-    
-    });
 
 
-
-  });
+  })
+  .catch(err => console.log(err));
 
   /* MODAL CLOSE EVENT LISTENER
   // 1. Hide all of the employee-modal-text-containers.
@@ -192,7 +150,7 @@ $(document).ready(function(){
 
   });
 
-});
+}
 
 
 // close the modal if the modal is present and it's clicked, not including the area for the modal-container
@@ -210,13 +168,47 @@ window.addEventListener("click", function(){
 $("#employee-search").on("keyup", function(){
   
   // grab the text that the user has typed
-  //use toLowerCase so that it will still return the correct result if the user uses upper case
+  // use toLowerCase so that it will still return the correct result if the user uses upper case
   let searchable = $(this).val().toLowerCase();
     
-  //Toggle the visibility of the figures that have the employee-primary-text class(exclusive to the employee's name).
-  //If the searchable text matches part of the text within the figure, it will be visible, you won't see it otherwise.  
+  // Toggle the visibility of the figures that have the employee-primary-text class(exclusive to the employee's name).
+  // If the searchable text matches part of the text within the figure, it will be visible, you won't see it otherwise.  
   $('[class*="employee-container-"]').filter(function(){
       $(this).toggle($(this).find('.employee-primary-text').text().toLowerCase().indexOf(searchable) > -1)
   });
 
 });
+
+
+    /*
+    // apply an eventlistener to every employee-container
+    var employeeContainers = document.querySelector(".employees-container").querySelectorAll('[class*="employee-container"]');
+
+    // EMPLOYEE CONTAINER EVENT LISTENER
+    // Clicking any of the employee containers triggers the following sequence of events
+    // 1. Populate the visibleEmployeeList array with the visible (style.display != "none;") employee-container classes.
+    // 2. Show the modal content that corresponds to the employee-container class that was clicked,
+    // 3. Show the modal. 
+    employeeContainers.forEach(employeeContainer =>{
+      
+      employeeContainer.addEventListener("click", function(){
+
+        // get the visible employee-container element's class numbers and store them in visibleEmployeesList
+        for(j = 0; j < employeesContainer.find('[class*="employee-container-"]:visible').length; j++){
+          
+          visibleEmployeesList.push(employeesContainer.find('[class*="employee-container-"]:visible')[j].classList[0]);
+
+        }
+
+        // show the employee modal element that matches the class of the employee container that was clicked
+        $(".modal-employee-content ."+employeeContainer.classList[0]).show();
+
+        console.log(event);
+
+        // show the modal
+        modal.show();
+      
+      });
+    
+    });
+    */
