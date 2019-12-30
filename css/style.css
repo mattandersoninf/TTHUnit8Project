@@ -63,16 +63,20 @@ header, main {
   margin: auto;
 }
 
-.employees-container [class*=employee-container] {
+[class*=employee-container] {
   width: 90%;
   margin: 5px auto;
   background-color: white;
   border-radius: 5px;
   padding: 0px 5px;
 }
-.employees-container [class*=employee-container] div {
+[class*=employee-container] div {
   margin: 2px auto;
   text-align: center;
+}
+
+main .employee-modal-info {
+  display: none;
 }
 
 /* image */

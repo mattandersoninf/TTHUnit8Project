@@ -19,7 +19,7 @@ header, main{
     display: none;
 }
 
-.grid-section{
+.grid-section {
     grid-gap: $gutter-space;
     border: 2px solid $employee-container-border-color;
 }
@@ -28,7 +28,7 @@ header, main{
     margin: auto;
 }
 
-.employees-container [class*="employee-container"]{
+[class*="employee-container"]{
     width: 90%;
     margin: $gutter-space auto;
     background-color: $employee-container-background-color;
@@ -40,4 +40,8 @@ header, main{
         text-align: center;
     }
 
+}
+
+main .employee-modal-info{
+    display: none;
 }
