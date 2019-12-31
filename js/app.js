@@ -40,12 +40,13 @@ function onloadFillEmployees(){
   .then((response) => response.json())
   .then(function(data){
 
+      // build the employee-container
     data.results.forEach(employee => {
 
-      // build the employee-container
-
+      // create a date object so that the information from the dob can be extracted more easily
       let employeeDOB  = new Date(employee.dob.date);
 
+      // construct the employee html of the employee-container
       let employeeInfoHTML = ` 
       <div class="employee-container-`+i+` grid-section">
           <div class="employee-img-container">
@@ -76,7 +77,7 @@ function onloadFillEmployees(){
     // EMPLOYEE CONTAINER EVENT LISTENER
     // Clicking any of the employee containers triggers the following sequence of events
     // 1. Fill the list of the employee-container-classes with the classes of all visible employee containers (they will act as pointers) 
-    // 2. Show the modal content that corresponds to the employee-container class that was clicked,
+    // 2. Fill the model-employee-content element with the employee-container element that was clicked
     // 3. Show the modal. 
     employeeContainers.forEach(employeeContainer =>{
       
@@ -101,7 +102,7 @@ function onloadFillEmployees(){
 }
 
 // MODAL CLOSE EVENT LISTENER
-// 1. Hide all of the employee-modal-text-containers.
+// 1. Empty the modal-employee-content
 // 2. Empty the visibleEmployeesList by setting it's length to 0.
 // 3. Hide the modal.
 document.querySelector(".modal-close").addEventListener("click", function(){
@@ -118,12 +119,9 @@ document.querySelector(".modal-close").addEventListener("click", function(){
 window.addEventListener("click", function(){
   if (event.target.classList.contains("modal")){
     
-    // empty the modal-employee-content by setting it's innerHTML to an empty string
     modalEmployeeContent.innerHTML = "";
     
-    // empty the visibleEmployeeList by setting it's length to 0
     visibleEmployeesList.length = 0;
-    
     
     modal.classList.add("hidden"); 
   
