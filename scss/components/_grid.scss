@@ -35,12 +35,18 @@ main .grid-section {
     background-color: $employee-container-background-color;
     border-radius: 5px;
     padding: $gutter-space;
+    transition: 200ms;
     
     & div{
         margin: 2px auto;
         text-align: center;
     }
 
+}
+
+main [class*="employee-container"]:hover{
+    background-color: $employee-container-hover-background-color;
+    color: $employee-container-hover-color;
 }
 
 main .employee-modal-info{

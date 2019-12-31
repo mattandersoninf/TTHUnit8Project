@@ -70,10 +70,16 @@ main .grid-section {
   background-color: white;
   border-radius: 5px;
   padding: 5px;
+  transition: 200ms;
 }
 [class*=employee-container] div {
   margin: 2px auto;
   text-align: center;
+}
+
+main [class*=employee-container]:hover {
+  background-color: #202020;
+  color: white;
 }
 
 main .employee-modal-info {
