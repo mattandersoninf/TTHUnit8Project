@@ -54,7 +54,7 @@ header, main {
   display: none;
 }
 
-.grid-section {
+main .grid-section {
   grid-gap: 5px;
   border: 2px solid #808080;
 }
@@ -68,7 +68,7 @@ header, main {
   margin: 5px auto;
   background-color: white;
   border-radius: 5px;
-  padding: 0px 5px;
+  padding: 5px;
 }
 [class*=employee-container] div {
   margin: 2px auto;

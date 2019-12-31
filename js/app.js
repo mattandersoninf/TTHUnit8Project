@@ -26,7 +26,7 @@ function onloadFillEmployees(){
   let i = 0;
 
   // hide modal
-  modal.style.display = "none";
+  modal.classList.add("hidden");
 
   // FETCH API PROMISE
   // 1. Call the fetch api to grab information from the provided url
@@ -59,7 +59,7 @@ function onloadFillEmployees(){
       `;
 
       // add the html of the employee container to the employees-container element
-      document.querySelector("main").innerHTML += employeeInfoHTML; 
+      document.querySelector("main").innerHTML += employeeInfoHTML;
 
       i++;
 
@@ -70,22 +70,21 @@ function onloadFillEmployees(){
 
     // EMPLOYEE CONTAINER EVENT LISTENER
     // Clicking any of the employee containers triggers the following sequence of events
-    // 1. Populate the visibleEmployeeList array with the visible (style.display != "none;") employee-container classes.
+    // 1. Fill the list of the employee-container-classes with the classes of all visible employee containers (they will act as pointers) 
     // 2. Show the modal content that corresponds to the employee-container class that was clicked,
     // 3. Show the modal. 
     employeeContainers.forEach(employeeContainer =>{
       
       employeeContainer.addEventListener("click", function(){
 
-        // generate a list of visible employees
-        visibleEmployeesList = document.querySelectorAll('main [class*="employee-container"]:not(.hidden)');
+        document.querySelectorAll('main [class*="employee-container"]:not(.hidden)').forEach(visibleEmployee =>{
+          visibleEmployeesList.push(visibleEmployee.classList[0]);
+        });
 
-        // show the employee modal element that matches the class of the employee container that was clicked
-        
-        console.log(event);
+        modalEmployeeContent.appendChild(employeeContainer.cloneNode(true));
 
         // show the modal
-        modal.style.display = "block";
+        modal.classList.remove("hidden");
       
       });
 
@@ -93,17 +92,36 @@ function onloadFillEmployees(){
 
   })
   .catch(err => console.log(err));
-  
-  
 
 }
 
+// MODAL CLOSE EVENT LISTENER
+// 1. Hide all of the employee-modal-text-containers.
+// 2. Empty the visibleEmployeesList by setting it's length to 0.
+// 3. Hide the modal.
+document.querySelector(".modal-close").addEventListener("click", function(){
+  
+  modalEmployeeContent.innerHTML = "";
+
+  visibleEmployeesList.length = 0;
+  
+  modal.classList.add("hidden");
+
+});
 
 // close the modal if the modal is present and it's clicked, not including the area for the modal-container
 window.addEventListener("click", function(){
   if (event.target.classList.contains("modal")){
+    
+    // empty the modal-employee-content by setting it's innerHTML to an empty string
     modalEmployeeContent.innerHTML = "";
-    modal.style.display = "none"; 
+    
+    // empty the visibleEmployeeList by setting it's length to 0
+    visibleEmployeesList.length = 0;
+    
+    
+    modal.classList.add("hidden"); 
+  
   }
 });
 
@@ -126,47 +144,29 @@ $("#employee-search").on("keyup", function(){
 });
 
 
-
-// MODAL CLOSE EVENT LISTENER
-// 1. Hide all of the employee-modal-text-containers.
-// 2. Empty the visibleEmployeesList by setting it's length to 0.
-// 3. Hide the modal.
-document.querySelector(".modal-close").addEventListener("click", function(){
-  
-  // hide all of the modal employee content
-  modal.querySelector(".modal-employee-content").innerHTML = "";
-
-  // clear the visibleEmployeeList
-  visibleEmployeesList.length = 0;
-
-  // hide the modal
-  modal.style.display = "none";
-
-});
-
 // PREVIOUS BUTTON EVENT LISTENER
 // 1. Get the employee-container class that is currently visible
-// 2. Get the employee-container class's index in the visibleEmployeeList
-// 3. Hide the currently visible container
-// 3. Decrement the index
-// 4. Check if the index falls into the range of the visibleEmployeeList
-// 4.a. if it doesn't reset the index to the length of the visibleEmployeeList
-// 5. Show the employee-container corresponding to the new index in the visibleEmployeeList
+// 2. Remove the current employee content from the modal
+// 3. Get a list of all the visible employees in main
+// 4. Find the index the employee-container captured previously and subtract 1
+// 5.a. If the index is less than zero, populate the modal with the last visible employee container
+// 5.b. Else, populate the modal with the employee-container whose index is 1 less than the previously visible one
 document.querySelector(".prev-container").addEventListener("click", function(){
 
-  let tempVisibleModalEmployee = $('.modal-employee-content [class*="employee-container-"]:visible')[0].classList[1];
+  // store the employee-container class that is currently shown in the modal
+  let tempVisibleModalEmployee = document.querySelector('.modal-employee-content [class*="employee-container-"]').classList[0];
 
-  let currIndex = visibleEmployeesList.indexOf(tempVisibleModalEmployee);
+  let tempIndex = visibleEmployeesList.indexOf(tempVisibleModalEmployee);
 
-  $('.modal-employee-content [class*="employee-container-"]:visible').hide();
+  tempIndex--;
 
-  currIndex--;
+  if (tempIndex < 0){
+    tempIndex = visibleEmployeesList.length - 1;
+  } 
 
-  if(currIndex < 0){
-    currIndex = visibleEmployeesList.length -1;
-  }
+  modalEmployeeContent.innerHTML = "";
 
-  $(".modal-employee-content ."+ visibleEmployeesList[currIndex]).show();
+  modalEmployeeContent.appendChild(document.querySelector("."+visibleEmployeesList[tempIndex]).cloneNode(true));
 
 });
 
@@ -179,19 +179,20 @@ document.querySelector(".prev-container").addEventListener("click", function(){
 // 4.a. if it doesn't reset the index to the length of the visibleEmployeeList
 // 5. Show the employee-container corresponding to the new index in the visibleEmployeeList
 document.querySelector(".next-container").addEventListener("click", function(){
+  
+  // store the employee-container class that is currently shown in the modal
+  let tempVisibleModalEmployee = document.querySelector('.modal-employee-content [class*="employee-container-"]').classList[0];
 
-  let tempVisibleModalEmployee = $('.modal-employee-content [class*="employee-container-"]:visible')[0].classList[1];
+  let tempIndex = visibleEmployeesList.indexOf(tempVisibleModalEmployee);
 
-  let currIndex = visibleEmployeesList.indexOf(tempVisibleModalEmployee);
+  tempIndex++;
 
-  document.querySelector('.modal-employee-content [class*="employee-container-"]').style.display = "none";
+  if (tempIndex > visibleEmployeesList.length - 1){
+    tempIndex = 0;
+  } 
 
-  currIndex++;
+  modalEmployeeContent.innerHTML = "";
 
-  if(currIndex >= visibleEmployeesList.length){
-    currIndex = 0;
-  }
-
-  document.querySelector(".modal-employee-content ."+ visibleEmployeesList[currIndex]).style.display = "block";
+  modalEmployeeContent.appendChild(document.querySelector("."+visibleEmployeesList[tempIndex]).cloneNode(true));
 
 });

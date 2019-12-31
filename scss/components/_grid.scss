@@ -19,7 +19,7 @@ header, main{
     display: none;
 }
 
-.grid-section {
+main .grid-section {
     grid-gap: $gutter-space;
     border: 2px solid $employee-container-border-color;
 }
@@ -33,7 +33,7 @@ header, main{
     margin: $gutter-space auto;
     background-color: $employee-container-background-color;
     border-radius: 5px;
-    padding: 0px 5px;
+    padding: $gutter-space;
     
     & div{
         margin: 2px auto;
