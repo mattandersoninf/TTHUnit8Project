@@ -15,6 +15,9 @@ const closeButton = document.querySelector(".modal-close");
 // the randomuser generator API site
 const url = "https://randomuser.me/api/?results=12&inc=picture,name,email,location,cell,dob &nat=US";
 
+// employee-search input element
+const employeeSearch = document.querySelector("#employee-search");
+
 let employeeContainers = [];
 
 let visibleEmployeesList = [];
@@ -128,19 +131,34 @@ window.addEventListener("click", function(){
 // SEARCH FUNCTION
 // Clicknig any letter or number key triggers the folowing actions
 // 1. Create a searchable variable
-// 2. Utilize the jQuery filter function to in 
-$("#employee-search").on("keyup", function(){
+employeeSearch.addEventListener("keyup", function(){
   
   // grab the text that the user has typed
   // use toLowerCase so that it will still return the correct result if the user uses upper case
-  let searchable = $(this).val().toLowerCase();
+  let searchable = event.target.value.toLowerCase();
+
+  let a, txt;
     
   // Toggle the visibility of the figures that have the employee-primary-text class(exclusive to the employee's name).
   // If the searchable text matches part of the text within the figure, it will be visible, you won't see it otherwise.  
-  $('[class*="employee-container-"]').filter(function(){
-      $(this).toggle($(this).find('.employee-primary-text').text().toLowerCase().indexOf(searchable) > -1)
-  });
+  for (let m = 0; m < document.querySelectorAll('[class*="employee-container-"]').length; m++){
 
+    //
+    a = document.querySelectorAll('[class*="employee-container-"]')[m];
+    
+    //
+    txt = a.querySelector(".employee-primary-text").textContent;
+    
+    if(txt.toLowerCase().indexOf(searchable) > -1){
+      a.classList.remove("hidden");
+    }
+    else
+    {
+      a.classList.add("hidden");
+    }
+
+  }
+  
 });
 
 
