@@ -44,6 +44,8 @@ function onloadFillEmployees(){
 
       // build the employee-container
 
+      let employeeDOB  = new Date(employee.dob.date);
+
       let employeeInfoHTML = ` 
       <div class="employee-container-`+i+` grid-section">
           <div class="employee-img-container">
@@ -56,7 +58,7 @@ function onloadFillEmployees(){
             <hr />
             <div class="employee-secondary-text">${employee.cell}</div>
             <div class="employee-secondary-text">${employee.location.street.number+" "+employee.location.street.name+" "+employee.location.city+", "+employee.location.state+" "+employee.location.postcode}</div>
-            <div class="employee-secondary-text">${employee.dob.date}</div>
+            <div class="employee-secondary-text">${employeeDOB.getDate()}/${employeeDOB.getMonth()}/${employeeDOB.getFullYear()}</div>
           </div>
       </div>
       `;
@@ -158,7 +160,7 @@ employeeSearch.addEventListener("keyup", function(){
     }
 
   }
-  
+
 });
 
 

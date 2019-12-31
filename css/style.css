@@ -38,6 +38,7 @@ header .app-name {
 body {
   width: 100%;
   margin: 0;
+  display: grid;
 }
 
 header, main {
@@ -92,11 +93,11 @@ main .employee-modal-info {
 
 /* input */
 #search {
-  margin: 5px 0;
+  margin: auto;
 }
 
 #employee-search {
-  margin: 0 auto;
+  margin: auto;
   padding: 3px;
   display: block;
   border: 2px solid #808080;
@@ -161,6 +162,34 @@ main .employee-modal-info {
   border-top: 2px solid #808080;
   padding: 5px 0px;
   margin-top: 5px;
+}
+
+/* tablet */
+@media screen and (min-width: 768px) {
+  header .app-name {
+    text-align: left;
+  }
+
+  body {
+    grid-template-columns: 1fr 200px;
+  }
+
+  main {
+    width: 95%;
+    grid-column-start: 1;
+    grid-column-end: -1;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  #search {
+    margin: auto auto auto 0;
+  }
+}
+/* desktop */
+@media screen and (min-width: 1024px) {
+  main {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
 }
 
 /*# sourceMappingURL=style.css.map */
