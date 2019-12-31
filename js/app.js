@@ -52,14 +52,16 @@ function onloadFillEmployees(){
           <div class="employee-img-container">
             <img src="${employee.picture.large}" class="img-rounded" alt="${employee.email}">
           </div>
-          <div class="employee-primary-text">${employee.name.first + " " + employee.name.last}</div>
-          <div class="employee-secondary-text">${employee.email}</div>
-          <div class="employee-secondary-text">${employee.location.city}</div>
-          <div class="employee-modal-info">
-            <hr />
-            <div class="employee-secondary-text">${employee.cell}</div>
-            <div class="employee-secondary-text">${employee.location.street.number+" "+employee.location.street.name+" "+employee.location.city+", "+employee.location.state+" "+employee.location.postcode}</div>
-            <div class="employee-secondary-text">${employeeDOB.getDate()}/${employeeDOB.getMonth()}/${employeeDOB.getFullYear()}</div>
+          <div class="employee-text-container">
+            <div class="employee-primary-text">${employee.name.first + " " + employee.name.last}</div>
+            <div class="employee-secondary-text">${employee.email}</div>
+            <div class="employee-secondary-text">${employee.location.city}</div>
+            <div class="employee-modal-info">
+              <hr />
+              <div class="employee-secondary-text">${employee.cell}</div>
+              <div class="employee-secondary-text">${employee.location.street.number+" "+employee.location.street.name+" "+employee.location.city+", "+employee.location.state+" "+employee.location.postcode}</div>
+              <div class="employee-secondary-text">Birthday: ${employeeDOB.getMonth()}/${employeeDOB.getDate()}/${employeeDOB.getFullYear()}</div>
+            </div>
           </div>
       </div>
       `;
